@@ -1,2 +1,11 @@
-all:
-	arm-hisiv400-linux-g++ -std=c++11 -o face_recognition face_recognition.cpp -lcurl -lcrypto -lssl -lz -ljsoncppv1.8.3 -L/home/reach/Hi-R11/glibs -I./include -I./
+CC=arm-hisiv400-linux-g++ -g -Wall -std=c++11
+
+LDFLAGS = -L/home/reach/Hi-R11/glibs -I./include -I./
+
+LIBS = -lcurl -lcrypto -lssl -lz -ljsoncppv1.8.3 -lthrift
+
+face_recognition:
+	$(CC) -o $@ FaceIdentify.cpp identify_types.cpp  identify_constants.cpp   face_recognition.cpp  $(LIBS)  $(CFLAGS) $(LDFLAGS) 
+	
+clean:
+	rm -f ./*.o face_recognition
