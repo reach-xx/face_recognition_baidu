@@ -79,7 +79,7 @@ int find_user_info(std::string       uid)
 
 
 /*查找组下的用户数*/
-int find_group_users(std::string group_id)
+std::string find_group_users(std::string group_id)
 {
 	Json::Value result;
  
@@ -97,7 +97,8 @@ int find_group_users(std::string group_id)
 		std::cout << uid << user_info << std::endl;
 	}
 	std::cout << "=================find end========================="<< std::endl;
-	return 0;
+	std::string ret = result.asString();
+	return ret;
 }
 
 
@@ -129,47 +130,42 @@ public:
 		// Your initialization goes here
 	}
 
-	void FI_add_face_database(const std::string& imagename) {
+	void FI_add_face_database(const std::string& uid, const std::string& user_info, const std::string& group_id, const std::string& imagename) {
 		// Your implementation goes here
-		std::string uid = "uid008";
-		Json::Value result;
-		std::string user_info = "张学友";
-		std::string group_id = "group1";
 		const char *pImage = imagename.c_str();
 		add_face_database(uid, user_info, group_id, pImage);
 		printf("FI_add_face_database\n");
 	}
 
-	int32_t FI_del_face_database(const std::string& uid) {
+	int32_t FI_del_face_database(const std::string& uid, const std::string& group_id) {
 		// Your implementation goes here
-		std::string group_id = "group1";
-		del_face_database(uid,group_id);
+		int32_t ret = 0;		
+		ret =del_face_database(uid,group_id);
 		printf("FI_del_face_database\n");
+		return ret;
 	}
 
-	int32_t FI_update_face_database(const std::string& imagename) {
+	int32_t FI_update_face_database(const std::string& uid, const std::string& user_info, const std::string& group_id, const std::string& imagename) {
 		// Your implementation goes here
-		std::string uid = "uid008";
-		Json::Value result;
-		std::string user_info = "张学友";
-		std::string group_id = "group1";
+		int32_t ret = 0;		
 		const char *pImage = imagename.c_str();		
 		update_face_database(uid, user_info, group_id, pImage);
 		printf("FI_update_face_database\n");
+		return ret;
 	}
 
 	int32_t FI_find_user_info(const std::string& uid) {
 		// Your implementation goes here
+		int32_t ret = 0;
 		find_user_info(uid);
 		printf("FI_find_user_info\n");
+		return ret;
 	}
 
-	int32_t FI_find_group_users(const std::string& group_id) {
-		std::string result ;
+	void FI_find_group_users(std::string& _return, const std::string& group_id) {
 		// Your implementation goes here
-		result = find_group_users(group_id);
+		_return = find_group_users(group_id);
 		printf("FI_find_group_users\n");
-		return 0;
 	}
 
 	void FI_face_database_identify(std::string& _return, const std::string& group_id, const std::string& imagename) {
@@ -177,6 +173,25 @@ public:
 		const char *pImage = imagename.c_str();
 		_return = face_database_identify(group_id,pImage);
 		printf("FI_face_database_identify\n");
+	}
+	
+	void FI_face_database_verify(std::string& _return, const std::string& uid, const std::string& user_info, const std::string& group_id, const std::string& imagename) {
+		// Your implementation goes here
+		printf("FI_face_database_verify\n");
+	}
+	
+	int32_t FI_group_deleteuser(const std::string& uid, const std::string& group_id) {
+		// Your implementation goes here
+		int32_t ret = 0;		
+		printf("FI_group_deleteuser\n");
+		return ret;
+	}
+	
+	int32_t FI_group_adduser(const std::string& src_group_id, const std::string& group_id, const std::string& uid) {
+		// Your implementation goes here
+		int32_t ret = 0;
+		printf("FI_group_adduser\n");
+		return ret;
 	}
 
 };

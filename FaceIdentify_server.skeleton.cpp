@@ -20,17 +20,17 @@ class FaceIdentifyHandler : virtual public FaceIdentifyIf {
     // Your initialization goes here
   }
 
-  void FI_add_face_database(const std::string& imagename) {
+  void FI_add_face_database(const std::string& uid, const std::string& user_info, const std::string& group_id, const std::string& imagename) {
     // Your implementation goes here
     printf("FI_add_face_database\n");
   }
 
-  int32_t FI_del_face_database(const std::string& uid) {
+  int32_t FI_del_face_database(const std::string& uid, const std::string& group_id) {
     // Your implementation goes here
     printf("FI_del_face_database\n");
   }
 
-  int32_t FI_update_face_database(const std::string& imagename) {
+  int32_t FI_update_face_database(const std::string& uid, const std::string& user_info, const std::string& group_id, const std::string& imagename) {
     // Your implementation goes here
     printf("FI_update_face_database\n");
   }
@@ -40,7 +40,7 @@ class FaceIdentifyHandler : virtual public FaceIdentifyIf {
     printf("FI_find_user_info\n");
   }
 
-  int32_t FI_find_group_users(const std::string& group_id) {
+  void FI_find_group_users(std::string& _return, const std::string& group_id) {
     // Your implementation goes here
     printf("FI_find_group_users\n");
   }
@@ -48,6 +48,21 @@ class FaceIdentifyHandler : virtual public FaceIdentifyIf {
   void FI_face_database_identify(std::string& _return, const std::string& group_id, const std::string& imagename) {
     // Your implementation goes here
     printf("FI_face_database_identify\n");
+  }
+
+  void FI_face_database_verify(std::string& _return, const std::string& uid, const std::string& user_info, const std::string& group_id, const std::string& imagename) {
+    // Your implementation goes here
+    printf("FI_face_database_verify\n");
+  }
+
+  int32_t FI_group_deleteuser(const std::string& uid, const std::string& group_id) {
+    // Your implementation goes here
+    printf("FI_group_deleteuser\n");
+  }
+
+  int32_t FI_group_adduser(const std::string& src_group_id, const std::string& group_id, const std::string& uid) {
+    // Your implementation goes here
+    printf("FI_group_adduser\n");
   }
 
 };
