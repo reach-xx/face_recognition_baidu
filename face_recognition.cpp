@@ -82,7 +82,6 @@ int find_user_info(std::string       uid)
 std::string find_group_users(std::string group_id)
 {
 	Json::Value result;
- 
 	int result_num = 0 , i;
 	// 调用组内用户列表查询
 	result = client.group_getusers(group_id, aip::null);
@@ -97,7 +96,7 @@ std::string find_group_users(std::string group_id)
 		std::cout << uid << user_info << std::endl;
 	}
 	std::cout << "=================find end========================="<< std::endl;
-	std::string ret = result.asString();
+	std::string ret = result.toStyledString();
 	return ret;
 }
 
@@ -107,7 +106,6 @@ std::string face_database_identify(std::string group_id, const char *imageName)
 {
 	Json::Value result;
 	std::string image;
-	std::string ret_val ;
 
 	// 如果有可选参数
 	std::map<std::string, std::string> options;
@@ -119,7 +117,7 @@ std::string face_database_identify(std::string group_id, const char *imageName)
 		// 调用人脸识别
 		result = client.identify(group_id, image, aip::null);	
 	}
-	ret_val = result.asString();
+	std::string ret_val = result.toStyledString();
 	return ret_val;
 }
 
@@ -165,6 +163,7 @@ public:
 	void FI_find_group_users(std::string& _return, const std::string& group_id) {
 		// Your implementation goes here
 		_return = find_group_users(group_id);
+		std::cout << _return << std::endl;
 		printf("FI_find_group_users\n");
 	}
 
@@ -177,6 +176,8 @@ public:
 	
 	void FI_face_database_verify(std::string& _return, const std::string& uid, const std::string& user_info, const std::string& group_id, const std::string& imagename) {
 		// Your implementation goes here
+		std::string temp  = "hello world to China Your implementation goes here!!!\n";
+		_return = temp;
 		printf("FI_face_database_verify\n");
 	}
 	
@@ -199,6 +200,7 @@ public:
 
 int main(int argc, char *argv[])
 {
+#if 1
 	int port = 50040;
 	shared_ptr<FaceIdentifyHandler> handler(new FaceIdentifyHandler());
 	shared_ptr<TProcessor> processor(new FaceIdentifyProcessor(handler));
@@ -208,6 +210,7 @@ int main(int argc, char *argv[])
 	TSimpleServer server(processor, serverTransport, transportFactory, protocolFactory);
 	printf("enter Server :\n");
 	server.serve();
+#endif
 #if 0
 	int ret = 0;
 	std::string uid = "uid008";
@@ -218,14 +221,10 @@ int main(int argc, char *argv[])
 	double score = 0.0;
 
 //	del_face_database(uid,group_id);
-	add_face_database(uid,user_info,group_id,imageName);
+//	add_face_database(uid,user_info,group_id,imageName);
 	find_group_users(group_id);
 	result = face_database_identify(group_id,imageName);
-//	std::cout << result << std::endl;
-	Json::Value res = result["result"];
-	const char *info = res[0]["user_info"].asCString();
-	score = res[0]["scores"][0].asDouble();
-	printf("name:%s        Scores:%f\n",info,score);
+	std::cout << result << std::endl;
 #endif	
 	return 0;
 }
