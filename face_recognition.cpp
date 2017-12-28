@@ -121,6 +121,52 @@ std::string face_database_identify(std::string group_id, const char *imageName)
 	return ret_val;
 }
 
+/*人脸检测*/
+std::string face_detect(const char * imageName)
+{
+	Json::Value result;
+	
+	std::string image;
+	if(imageName != NULL)   {
+		aip::get_file_content(imageName, &image);
+		
+		//如果有可选参数
+		std::map<std::string, std::string> options;
+		options["max_face_num"] = "10";
+		options["face_fields"] = "age";		
+		//带参数调用人脸检测
+		result = client.detect(image, options);
+	}
+	std::string ret_val = result.toStyledString();
+	return ret_val;
+}
+
+/*人脸比对*/
+std::string face_match(const char *image1, const char *image2)
+{
+	Json::Value result;
+	std::string ret_val;
+	std::vector<std::string> images;
+	std::string temp_file_str;
+	if(image1 == NULL || image2 == NULL)
+		return ret_val;
+	aip::get_file_content(image1, &temp_file_str);
+	images.emplace_back(std::move(temp_file_str));
+	aip::get_file_content(image2, &temp_file_str);
+	images.emplace_back(std::move(temp_file_str));
+
+	// 如果有可选参数
+	std::map<std::string, std::string> options;
+	options["ext_fields"] = "qualities";
+	options["image_liveness"] = ",faceliveness";
+	options["types"] = "7,13";
+
+	// 带参数调用人脸比对
+	result = client.match(images, options);	
+	ret_val = result.toStyledString();
+	return ret_val;
+}
+
 
 class FaceIdentifyHandler : virtual public FaceIdentifyIf {
 public:
@@ -193,6 +239,19 @@ public:
 		int32_t ret = 0;
 		printf("FI_group_adduser\n");
 		return ret;
+	}
+	void FI_face_detect(std::string& _return, const std::string& imagename) {
+		// Your implementation goes here
+		const char *pImage = imagename.c_str();
+		_return = face_detect(pImage);
+		printf("FI_face_detect\n");
+	}
+	void FI_face_match(std::string& _return, const std::string& image1, const std::string& image2) {
+		// Your implementation goes here
+		const char *pImage1 = image1.c_str();
+		const char *pImage2 = image2.c_str();
+		_return = face_match(pImage1, pImage2);
+		printf("FI_face_match\n");
 	}
 
 };

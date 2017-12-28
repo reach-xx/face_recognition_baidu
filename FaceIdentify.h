@@ -24,6 +24,8 @@ class FaceIdentifyIf {
   virtual void FI_face_database_verify(std::string& _return, const std::string& uid, const std::string& user_info, const std::string& group_id, const std::string& imagename) = 0;
   virtual int32_t FI_group_deleteuser(const std::string& uid, const std::string& group_id) = 0;
   virtual int32_t FI_group_adduser(const std::string& src_group_id, const std::string& group_id, const std::string& uid) = 0;
+  virtual void FI_face_detect(std::string& _return, const std::string& imagename) = 0;
+  virtual void FI_face_match(std::string& _return, const std::string& image1, const std::string& image2) = 0;
 };
 
 class FaceIdentifyIfFactory {
@@ -84,6 +86,12 @@ class FaceIdentifyNull : virtual public FaceIdentifyIf {
   int32_t FI_group_adduser(const std::string& /* src_group_id */, const std::string& /* group_id */, const std::string& /* uid */) {
     int32_t _return = 0;
     return _return;
+  }
+  void FI_face_detect(std::string& /* _return */, const std::string& /* imagename */) {
+    return;
+  }
+  void FI_face_match(std::string& /* _return */, const std::string& /* image1 */, const std::string& /* image2 */) {
+    return;
   }
 };
 
@@ -1247,6 +1255,253 @@ class FaceIdentify_FI_group_adduser_presult {
   friend std::ostream& operator<<(std::ostream& out, const FaceIdentify_FI_group_adduser_presult& obj);
 };
 
+typedef struct _FaceIdentify_FI_face_detect_args__isset {
+  _FaceIdentify_FI_face_detect_args__isset() : imagename(false) {}
+  bool imagename :1;
+} _FaceIdentify_FI_face_detect_args__isset;
+
+class FaceIdentify_FI_face_detect_args {
+ public:
+
+  static const char* ascii_fingerprint; // = "EFB929595D312AC8F305D5A794CFEDA1";
+  static const uint8_t binary_fingerprint[16]; // = {0xEF,0xB9,0x29,0x59,0x5D,0x31,0x2A,0xC8,0xF3,0x05,0xD5,0xA7,0x94,0xCF,0xED,0xA1};
+
+  FaceIdentify_FI_face_detect_args(const FaceIdentify_FI_face_detect_args&);
+  FaceIdentify_FI_face_detect_args& operator=(const FaceIdentify_FI_face_detect_args&);
+  FaceIdentify_FI_face_detect_args() : imagename() {
+  }
+
+  virtual ~FaceIdentify_FI_face_detect_args() throw();
+  std::string imagename;
+
+  _FaceIdentify_FI_face_detect_args__isset __isset;
+
+  void __set_imagename(const std::string& val);
+
+  bool operator == (const FaceIdentify_FI_face_detect_args & rhs) const
+  {
+    if (!(imagename == rhs.imagename))
+      return false;
+    return true;
+  }
+  bool operator != (const FaceIdentify_FI_face_detect_args &rhs) const {
+    return !(*this == rhs);
+  }
+
+  bool operator < (const FaceIdentify_FI_face_detect_args & ) const;
+
+  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
+  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
+
+  friend std::ostream& operator<<(std::ostream& out, const FaceIdentify_FI_face_detect_args& obj);
+};
+
+
+class FaceIdentify_FI_face_detect_pargs {
+ public:
+
+  static const char* ascii_fingerprint; // = "EFB929595D312AC8F305D5A794CFEDA1";
+  static const uint8_t binary_fingerprint[16]; // = {0xEF,0xB9,0x29,0x59,0x5D,0x31,0x2A,0xC8,0xF3,0x05,0xD5,0xA7,0x94,0xCF,0xED,0xA1};
+
+
+  virtual ~FaceIdentify_FI_face_detect_pargs() throw();
+  const std::string* imagename;
+
+  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
+
+  friend std::ostream& operator<<(std::ostream& out, const FaceIdentify_FI_face_detect_pargs& obj);
+};
+
+typedef struct _FaceIdentify_FI_face_detect_result__isset {
+  _FaceIdentify_FI_face_detect_result__isset() : success(false) {}
+  bool success :1;
+} _FaceIdentify_FI_face_detect_result__isset;
+
+class FaceIdentify_FI_face_detect_result {
+ public:
+
+  static const char* ascii_fingerprint; // = "9A73381FEFD6B67F432E717102246330";
+  static const uint8_t binary_fingerprint[16]; // = {0x9A,0x73,0x38,0x1F,0xEF,0xD6,0xB6,0x7F,0x43,0x2E,0x71,0x71,0x02,0x24,0x63,0x30};
+
+  FaceIdentify_FI_face_detect_result(const FaceIdentify_FI_face_detect_result&);
+  FaceIdentify_FI_face_detect_result& operator=(const FaceIdentify_FI_face_detect_result&);
+  FaceIdentify_FI_face_detect_result() : success() {
+  }
+
+  virtual ~FaceIdentify_FI_face_detect_result() throw();
+  std::string success;
+
+  _FaceIdentify_FI_face_detect_result__isset __isset;
+
+  void __set_success(const std::string& val);
+
+  bool operator == (const FaceIdentify_FI_face_detect_result & rhs) const
+  {
+    if (!(success == rhs.success))
+      return false;
+    return true;
+  }
+  bool operator != (const FaceIdentify_FI_face_detect_result &rhs) const {
+    return !(*this == rhs);
+  }
+
+  bool operator < (const FaceIdentify_FI_face_detect_result & ) const;
+
+  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
+  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
+
+  friend std::ostream& operator<<(std::ostream& out, const FaceIdentify_FI_face_detect_result& obj);
+};
+
+typedef struct _FaceIdentify_FI_face_detect_presult__isset {
+  _FaceIdentify_FI_face_detect_presult__isset() : success(false) {}
+  bool success :1;
+} _FaceIdentify_FI_face_detect_presult__isset;
+
+class FaceIdentify_FI_face_detect_presult {
+ public:
+
+  static const char* ascii_fingerprint; // = "9A73381FEFD6B67F432E717102246330";
+  static const uint8_t binary_fingerprint[16]; // = {0x9A,0x73,0x38,0x1F,0xEF,0xD6,0xB6,0x7F,0x43,0x2E,0x71,0x71,0x02,0x24,0x63,0x30};
+
+
+  virtual ~FaceIdentify_FI_face_detect_presult() throw();
+  std::string* success;
+
+  _FaceIdentify_FI_face_detect_presult__isset __isset;
+
+  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
+
+  friend std::ostream& operator<<(std::ostream& out, const FaceIdentify_FI_face_detect_presult& obj);
+};
+
+typedef struct _FaceIdentify_FI_face_match_args__isset {
+  _FaceIdentify_FI_face_match_args__isset() : image1(false), image2(false) {}
+  bool image1 :1;
+  bool image2 :1;
+} _FaceIdentify_FI_face_match_args__isset;
+
+class FaceIdentify_FI_face_match_args {
+ public:
+
+  static const char* ascii_fingerprint; // = "07A9615F837F7D0A952B595DD3020972";
+  static const uint8_t binary_fingerprint[16]; // = {0x07,0xA9,0x61,0x5F,0x83,0x7F,0x7D,0x0A,0x95,0x2B,0x59,0x5D,0xD3,0x02,0x09,0x72};
+
+  FaceIdentify_FI_face_match_args(const FaceIdentify_FI_face_match_args&);
+  FaceIdentify_FI_face_match_args& operator=(const FaceIdentify_FI_face_match_args&);
+  FaceIdentify_FI_face_match_args() : image1(), image2() {
+  }
+
+  virtual ~FaceIdentify_FI_face_match_args() throw();
+  std::string image1;
+  std::string image2;
+
+  _FaceIdentify_FI_face_match_args__isset __isset;
+
+  void __set_image1(const std::string& val);
+
+  void __set_image2(const std::string& val);
+
+  bool operator == (const FaceIdentify_FI_face_match_args & rhs) const
+  {
+    if (!(image1 == rhs.image1))
+      return false;
+    if (!(image2 == rhs.image2))
+      return false;
+    return true;
+  }
+  bool operator != (const FaceIdentify_FI_face_match_args &rhs) const {
+    return !(*this == rhs);
+  }
+
+  bool operator < (const FaceIdentify_FI_face_match_args & ) const;
+
+  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
+  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
+
+  friend std::ostream& operator<<(std::ostream& out, const FaceIdentify_FI_face_match_args& obj);
+};
+
+
+class FaceIdentify_FI_face_match_pargs {
+ public:
+
+  static const char* ascii_fingerprint; // = "07A9615F837F7D0A952B595DD3020972";
+  static const uint8_t binary_fingerprint[16]; // = {0x07,0xA9,0x61,0x5F,0x83,0x7F,0x7D,0x0A,0x95,0x2B,0x59,0x5D,0xD3,0x02,0x09,0x72};
+
+
+  virtual ~FaceIdentify_FI_face_match_pargs() throw();
+  const std::string* image1;
+  const std::string* image2;
+
+  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
+
+  friend std::ostream& operator<<(std::ostream& out, const FaceIdentify_FI_face_match_pargs& obj);
+};
+
+typedef struct _FaceIdentify_FI_face_match_result__isset {
+  _FaceIdentify_FI_face_match_result__isset() : success(false) {}
+  bool success :1;
+} _FaceIdentify_FI_face_match_result__isset;
+
+class FaceIdentify_FI_face_match_result {
+ public:
+
+  static const char* ascii_fingerprint; // = "9A73381FEFD6B67F432E717102246330";
+  static const uint8_t binary_fingerprint[16]; // = {0x9A,0x73,0x38,0x1F,0xEF,0xD6,0xB6,0x7F,0x43,0x2E,0x71,0x71,0x02,0x24,0x63,0x30};
+
+  FaceIdentify_FI_face_match_result(const FaceIdentify_FI_face_match_result&);
+  FaceIdentify_FI_face_match_result& operator=(const FaceIdentify_FI_face_match_result&);
+  FaceIdentify_FI_face_match_result() : success() {
+  }
+
+  virtual ~FaceIdentify_FI_face_match_result() throw();
+  std::string success;
+
+  _FaceIdentify_FI_face_match_result__isset __isset;
+
+  void __set_success(const std::string& val);
+
+  bool operator == (const FaceIdentify_FI_face_match_result & rhs) const
+  {
+    if (!(success == rhs.success))
+      return false;
+    return true;
+  }
+  bool operator != (const FaceIdentify_FI_face_match_result &rhs) const {
+    return !(*this == rhs);
+  }
+
+  bool operator < (const FaceIdentify_FI_face_match_result & ) const;
+
+  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
+  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
+
+  friend std::ostream& operator<<(std::ostream& out, const FaceIdentify_FI_face_match_result& obj);
+};
+
+typedef struct _FaceIdentify_FI_face_match_presult__isset {
+  _FaceIdentify_FI_face_match_presult__isset() : success(false) {}
+  bool success :1;
+} _FaceIdentify_FI_face_match_presult__isset;
+
+class FaceIdentify_FI_face_match_presult {
+ public:
+
+  static const char* ascii_fingerprint; // = "9A73381FEFD6B67F432E717102246330";
+  static const uint8_t binary_fingerprint[16]; // = {0x9A,0x73,0x38,0x1F,0xEF,0xD6,0xB6,0x7F,0x43,0x2E,0x71,0x71,0x02,0x24,0x63,0x30};
+
+
+  virtual ~FaceIdentify_FI_face_match_presult() throw();
+  std::string* success;
+
+  _FaceIdentify_FI_face_match_presult__isset __isset;
+
+  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
+
+  friend std::ostream& operator<<(std::ostream& out, const FaceIdentify_FI_face_match_presult& obj);
+};
+
 class FaceIdentifyClient : virtual public FaceIdentifyIf {
  public:
   FaceIdentifyClient(boost::shared_ptr< ::apache::thrift::protocol::TProtocol> prot) {
@@ -1299,6 +1554,12 @@ class FaceIdentifyClient : virtual public FaceIdentifyIf {
   int32_t FI_group_adduser(const std::string& src_group_id, const std::string& group_id, const std::string& uid);
   void send_FI_group_adduser(const std::string& src_group_id, const std::string& group_id, const std::string& uid);
   int32_t recv_FI_group_adduser();
+  void FI_face_detect(std::string& _return, const std::string& imagename);
+  void send_FI_face_detect(const std::string& imagename);
+  void recv_FI_face_detect(std::string& _return);
+  void FI_face_match(std::string& _return, const std::string& image1, const std::string& image2);
+  void send_FI_face_match(const std::string& image1, const std::string& image2);
+  void recv_FI_face_match(std::string& _return);
  protected:
   boost::shared_ptr< ::apache::thrift::protocol::TProtocol> piprot_;
   boost::shared_ptr< ::apache::thrift::protocol::TProtocol> poprot_;
@@ -1323,6 +1584,8 @@ class FaceIdentifyProcessor : public ::apache::thrift::TDispatchProcessor {
   void process_FI_face_database_verify(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext);
   void process_FI_group_deleteuser(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext);
   void process_FI_group_adduser(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext);
+  void process_FI_face_detect(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext);
+  void process_FI_face_match(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext);
  public:
   FaceIdentifyProcessor(boost::shared_ptr<FaceIdentifyIf> iface) :
     iface_(iface) {
@@ -1335,6 +1598,8 @@ class FaceIdentifyProcessor : public ::apache::thrift::TDispatchProcessor {
     processMap_["FI_face_database_verify"] = &FaceIdentifyProcessor::process_FI_face_database_verify;
     processMap_["FI_group_deleteuser"] = &FaceIdentifyProcessor::process_FI_group_deleteuser;
     processMap_["FI_group_adduser"] = &FaceIdentifyProcessor::process_FI_group_adduser;
+    processMap_["FI_face_detect"] = &FaceIdentifyProcessor::process_FI_face_detect;
+    processMap_["FI_face_match"] = &FaceIdentifyProcessor::process_FI_face_match;
   }
 
   virtual ~FaceIdentifyProcessor() {}
@@ -1445,6 +1710,26 @@ class FaceIdentifyMultiface : virtual public FaceIdentifyIf {
       ifaces_[i]->FI_group_adduser(src_group_id, group_id, uid);
     }
     return ifaces_[i]->FI_group_adduser(src_group_id, group_id, uid);
+  }
+
+  void FI_face_detect(std::string& _return, const std::string& imagename) {
+    size_t sz = ifaces_.size();
+    size_t i = 0;
+    for (; i < (sz - 1); ++i) {
+      ifaces_[i]->FI_face_detect(_return, imagename);
+    }
+    ifaces_[i]->FI_face_detect(_return, imagename);
+    return;
+  }
+
+  void FI_face_match(std::string& _return, const std::string& image1, const std::string& image2) {
+    size_t sz = ifaces_.size();
+    size_t i = 0;
+    for (; i < (sz - 1); ++i) {
+      ifaces_[i]->FI_face_match(_return, image1, image2);
+    }
+    ifaces_[i]->FI_face_match(_return, image1, image2);
+    return;
   }
 
 };

@@ -65,6 +65,16 @@ class FaceIdentifyHandler : virtual public FaceIdentifyIf {
     printf("FI_group_adduser\n");
   }
 
+  void FI_face_detect(std::string& _return, const std::string& imagename) {
+    // Your implementation goes here
+    printf("FI_face_detect\n");
+  }
+
+  void FI_face_match(std::string& _return, const std::string& image1, const std::string& image2) {
+    // Your implementation goes here
+    printf("FI_face_match\n");
+  }
+
 };
 
 int main(int argc, char **argv) {
